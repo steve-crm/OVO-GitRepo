@@ -25,4 +25,15 @@
             <valueSetName>Loyalty_Status</valueSetName>
         </valueSet>
     </fields>
+	<fields>
+        <fullName>ourFriendsID__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <externalId>true</externalId>
+        <label>Our Friends ID</label>
+        <length>36</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
 </CustomObject>
