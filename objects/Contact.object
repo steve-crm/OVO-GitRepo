@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Gender__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>How does the contact identify their gender?</inlineHelpText>
+        <label>Gender</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Gender</valueSetName>
+        </valueSet>
+    </fields>
+	<fields>
+        <fullName>Loyalty_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Loyalty Status</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>Loyalty_Status</valueSetName>
+        </valueSet>
+    </fields>
+</CustomObject>

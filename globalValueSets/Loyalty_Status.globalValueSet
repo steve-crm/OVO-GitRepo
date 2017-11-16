@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Friendly</fullName>
+        <default>false</default>
+        <label>Friendly</label>
+    </customValue>
+    <customValue>
+        <fullName>Standard</fullName>
+        <default>false</default>
+        <label>Standard</label>
+    </customValue>
+    <customValue>
+        <fullName>Unfriendly</fullName>
+        <default>false</default>
+        <label>Unfriendly</label>
+    </customValue>
+    <masterLabel>Loyalty Status</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

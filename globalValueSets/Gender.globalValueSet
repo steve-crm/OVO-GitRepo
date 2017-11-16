@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Female</fullName>
+        <default>false</default>
+        <label>Female</label>
+    </customValue>
+    <customValue>
+        <fullName>Male</fullName>
+        <default>false</default>
+        <label>Male</label>
+    </customValue>
+    <customValue>
+        <fullName>Non-binary</fullName>
+        <default>false</default>
+        <label>Non-binary</label>
+    </customValue>
+    <customValue>
+        <fullName>Prefer not to disclose</fullName>
+        <default>false</default>
+        <label>Prefer not to disclose</label>
+    </customValue>
+    <customValue>
+        <fullName>Transgender</fullName>
+        <default>false</default>
+        <label>Transgender</label>
+    </customValue>
+    <description>How does the contact identify their gender?</description>
+    <masterLabel>Gender</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
