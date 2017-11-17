@@ -12,7 +12,6 @@ public without sharing class ContactTriggerDelegate extends TriggerHandler.Deleg
     public override void prepareAfter() {
     	contactsToSetAfter = new list<Contact>();
     	contactsToCheckFriendliness = new list<Contact>();
-    	
     }
     
     public override void beforeInsert(sObject o) {
@@ -35,15 +34,18 @@ public without sharing class ContactTriggerDelegate extends TriggerHandler.Deleg
     	if (newContact.Loyalty_Status__c == null || newContact.Loyalty_Status__c == '' ) {
     		newContact.Loyalty_Status__c = 'Standard';
     	}
-    	//  we want to check whether the value for ourFriendsID__c is being updated or added and add the Contact to a list to be processed against ourFriends if so 
+    	//  Loyalty_Status__c set to 'Standard' when ourFriendsID__c is cleared to ensure an accurate value based on a new callout
+    	if ( (newContact.ourFriendsID__c == null || newContact.ourFriendsID__c == '') && newContact.ourFriendsID__c != oldContact.ourFriendsID__c) {
+    		newContact.Loyalty_Status__c = 'Standard';
+    	}
+    	//  we want to check whether the value for ourFriendsID__c is being updated or added and add the Contact to a list to be processed against ourFriends if so
     	if (newContact.ourFriendsID__c != null && newContact.ourFriendsID__c != '' && newContact.ourFriendsID__c != oldContact.ourFriendsID__c) {
+    		newContact.Loyalty_Status__c = 'Standard';
     		contactsToCheckFriendliness.add(newContact);
     	}
-    	
     }
     
     public override void finish() {
-    	//pass the sf id as well as the target id to allow update
     	if (contactsToCheckFriendliness.size() > 0 && !contactsToCheckFriendliness.isEmpty() ) {
     		checkOurFriends(contactsToCheckFriendliness);
     	}
@@ -52,7 +54,6 @@ public without sharing class ContactTriggerDelegate extends TriggerHandler.Deleg
     public void checkOurFriends(list<Contact> contactsToCheckFriendliness) {
     	for ( Contact C :  contactsToCheckFriendliness ) {
     		ourFriends_SpecificCustomer.makeCallout(C.ourFriendsID__c, C.Id);
-    		//C.Loyalty_Status__c = 'Friendly';
     	}
     }
 }
