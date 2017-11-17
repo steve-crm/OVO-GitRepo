@@ -36,4 +36,14 @@
         <type>Text</type>
         <unique>true</unique>
     </fields>
+	<fields>
+        <fullName>Manual_Loyalty_Status__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This flag is set when the Loyalty Status is set to &apos;Unfriendly&apos; by user input to stop batch updates setting it back to &apos;Friendly&apos;</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This flag is set when the Loyalty Status is set to &apos;Unfriendly&apos; by user input to stop batch updates setting it back to &apos;Friendly&apos;</inlineHelpText>
+        <label>Manual Loyalty Status</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Checkbox</type>
+    </fields>
 </CustomObject>
