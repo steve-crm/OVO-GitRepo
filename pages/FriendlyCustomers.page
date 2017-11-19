@@ -1,0 +1,111 @@
+<apex:page title="Manage Friends" controller="FriendlyCustomersController">
+	<head>		
+		<apex:includeScript value="{!URLFOR($Resource.jQuery,'JSandCSS/js/jquery.min.js')}" />
+		
+		<style type="text/css">
+		
+			.splashStatus {
+	            display: none;
+	            position: fixed !important;
+	            top: 450px !important;
+	            left: 45%;
+	            border: 1px solid #dedede;
+	            z-index: 9999;
+	            background: #eee;
+	            padding: 10px;
+	            padding: 10px;
+	            border-radius: 3px;
+	            width: 100px;
+	            height: 50px;
+	        }
+	        		
+			.splashStatus .circle {
+	            width: 32px;
+	            margin: 0 auto;
+	        }
+	            
+	        .splashStatus .txt {
+	            text-align: center;
+	            font-size: 14px;
+	            font-family: Arial, sans-serif;
+	            color: #171717;
+	            text-shadow: 0 1px 0 #eee;
+	        }
+	        
+	        .lightbox {
+	            display: none;
+	            background: #000000;
+	            opacity: 0.6;
+	            filter: alpha(opacity=70);
+	            position: fixed;
+	            top: 0px;
+	            left: 0px;
+	            min-width: 100%;
+	            min-height: 100%;
+	            z-index: 1000;
+	        }
+		</style>
+	</head>
+	
+	<body>
+		<apex:form id="ourFriends">
+	        <div class="splashStatus" id="splashDiv">
+		        <div class="circle"><img src="/img/loading32.gif"/></div>
+		        <div class="txt">loading...</div>
+		    </div>
+	        <apex:actionStatus id="Status" onstart="StartSplash();" onstop="EndSplash(); "/>
+	                
+	        <apex:sectionHeader title="Manage friendly Contacts" subtitle="Friends of OVO"/>
+	        <apex:pageBlock id="listPB" mode="maindetail" >
+	        	
+	        	<apex:commandButton value="Refresh List" action="{!refresh}" title="Refresh Page" onClick="StartSplash();"/>
+	        	<br/>
+	        	<br/>
+	            <apex:pageBlockTable value="{!Contacts}" var="c" width="90%" >
+	                <apex:column width="25%" >
+	                	<apex:facet name="header">
+		                    Name
+		                </apex:facet>
+	                	<a href="/{!c.Id}" id="{!c.Id}" onblur="LookupHoverDetail.getHover('{!c.Id}').hide();" onfocus="LookupHoverDetail.getHover('{!c.Id}', '/{!c.Id}/m?retURL=%2F{!c.Id}&isAjaxRequest=1').show();" onmouseout="LookupHoverDetail.getHover('{!c.Id}').hide();" onmouseover="LookupHoverDetail.getHover('{!c.Id}', '/{!c.Id}/m?retURL=%2F{!c.Id}&isAjaxRequest=1').show();">{!c.Name}</a>
+	                </apex:column>	                
+	                <apex:column value="{!c.Account.Name}" width="30%" />
+	                <apex:column value="{!c.Gender__c}" width="25%" />
+	                <apex:column width="20%" >
+		                <apex:facet name="header">
+		                    Actions
+		                </apex:facet>
+		                <apex:commandButton value="Unfriend" action="{!unfriend}" style="height:18px; width:65px; font-size: 0.8em; font-weight: bold;" status="Status" >
+		                   <apex:param name="unfriendIdentifier" value="{!c.Id}" assignTo="{!unfriendIdentifier}"/>
+	                       <apex:actionSupport event="oncomplete" reRender="listPB" />
+	                   </apex:commandButton>
+	               </apex:column>
+	            </apex:pageBlockTable>
+	            <apex:panelGrid columns="2" width="90%" style="align: centre;">
+	                <apex:outputText style="font-style: italic;">Displaying {!(pageNumber * size)+1-size}-{!IF((pageNumber * size)>noOfRecords, noOfRecords,(pageNumber * size))} of {!noOfRecords}</apex:outputText>
+	                <apex:outputPanel >
+		                <apex:commandButton status="Status" reRender="listPB" value="First" action="{!first}" disabled="{!!hasPrevious}" title="First Page"/>
+		                <apex:commandButton status="Status" reRender="listPB" value="Previous" action="{!previous}" disabled="{!!hasPrevious}" title="Previous Page"/>
+		                <apex:commandButton status="Status" reRender="listPB" value="Next" action="{!next}" disabled="{!!hasNext}" title="Next Page"/>
+		                <apex:commandButton status="Status" reRender="listPB" value="Last" action="{!last}" disabled="{!!hasNext}" title="Last Page"/>
+		            </apex:outputPanel>
+	                
+	            </apex:panelGrid>
+	        </apex:pageBlock>
+	        <div class="lightbox"></div>
+	    </apex:form>
+	    
+	    <script type="text/javascript">
+	        j$ = jQuery.noConflict();
+	        
+	        function StartSplash() {
+	            document.getElementById('splashDiv').style.display='table-cell';
+	            j$('.lightbox').fadeIn(300); 
+	        }
+	        
+	        function EndSplash() {
+	            document.getElementById('splashDiv').style.display='none';
+	            j$('.lightbox').fadeOut(300); 
+	        }
+	    </script> 
+    </body>
+</apex:page>
