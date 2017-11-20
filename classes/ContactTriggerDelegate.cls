@@ -1,3 +1,8 @@
+/*
+Author  : Steven Edwards
+Date    : November 2017
+Usage   : This class implements Contact trigger logic
+*/
 public without sharing class ContactTriggerDelegate extends TriggerHandler.DelegateBase {
     
     List<Contact> contactsToSetBefore;
@@ -16,13 +21,16 @@ public without sharing class ContactTriggerDelegate extends TriggerHandler.Deleg
     
     public override void beforeInsert(sObject o) {
     	Contact newContact = (Contact)o;
-    	newContact.Loyalty_Status__c = 'Standard';
+    	if (newContact.Loyalty_Status__c == null || newContact.Loyalty_Status__c == '') {
+    		newContact.Loyalty_Status__c = 'Standard';
+    	}
     }
     
     public override void afterInsert(sObject o) {
     	Contact newContact = (Contact)o;
     	//  we want to check whether a value is included for ourFriendsID__c and add the Contact to a list to be processed against ourFriends if so 
-    	if (newContact.ourFriendsID__c != null && newContact.ourFriendsID__c != '') {
+    	//  however, we want to exclude those created by the batch job calling /customers since the @future method in ourFriends_SpecificCustomer will throw an error if invoked from within a batch
+    	if (newContact.ourFriendsID__c != null && newContact.ourFriendsID__c != '' && !newContact.createdByBatch__c) {
     		contactsToCheckFriendliness.add(newContact);
     	}
     }

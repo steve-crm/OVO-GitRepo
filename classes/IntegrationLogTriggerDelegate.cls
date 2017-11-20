@@ -1,3 +1,8 @@
+/*
+Author  : Steven Edwards
+Date    : November 2017
+Usage   : This class implements Integration_Log__c trigger logic
+*/
 public with sharing class IntegrationLogTriggerDelegate extends TriggerHandler.DelegateBase {
     
     list<Integration_Log__c> logsToProcess;

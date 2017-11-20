@@ -1,3 +1,8 @@
+/*
+Author  : Steven Edwards
+Date    : November 2017
+Usage   : This class performs the insertion of Integration_Log__c records generated in response to a callout to the ourFriends service returning customer details based on the provided Id parameter
+*/
 public with sharing class Integration_Logging {
     
     public static void createLogs(list<Integration_Log__c> logs) {

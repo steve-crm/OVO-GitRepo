@@ -1,3 +1,8 @@
+/*
+Author  : Steven Edwards
+Date    : November 2017
+Usage   : This class utilises the ourFriends service to return customer details based on the provided Id parameter
+*/
 public with sharing class ourFriends_SpecificCustomer {
     
     //  Inner class to hold response for parsing
@@ -17,6 +22,8 @@ public with sharing class ourFriends_SpecificCustomer {
     }
 	
     @future(Callout = true)
+    //  callout is a future method since synchronous aren't permitted in a trigger context
+    //  the streaming api could be used with a vf page utlising the apex:detail tag overriding the standard view page to allow a page update without the user having to refresh the page
     public static void makeCallout(string ourFriendsID, string ContactId) {
     	
     	Response resp;
